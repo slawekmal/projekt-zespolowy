@@ -35,9 +35,8 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 reakcja();
             }
-            };
-            b.setOnClickListener(l);
-
+        };
+        b.setOnClickListener(l);
 
 
         // get the listview
@@ -51,8 +50,25 @@ public class MainActivity extends Activity {
         // setting list adapter
         expListView.setAdapter(listAdapter);
 
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                switch (groupPosition)
+                {
+                    case 0:
+                        switch (childPosition)
+                        {
+                            case 0:
+                                reakcja();
+                                break;
+                        }
+                }
+                return false;
+            }
 
+        });
     }
 
     /*
@@ -92,7 +108,6 @@ public class MainActivity extends Activity {
         listDataChild.put(listDataHeader.get(1), nowShowing);
         listDataChild.put(listDataHeader.get(2), comingSoon);
     }
-
 
 
 
