@@ -9,4 +9,34 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_klubowe" tools:context="com.example.marek.myapplication.Klubowe">
 
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Wybierz Klub"
+        android:id="@+id/textView2"
+        android:layout_marginTop="18dp"
+
+        android:layout_centerHorizontal="true" />
+
+    <ExpandableListView
+        android:id="@+id/lvExp"
+        android:layout_height="400dp"
+        android:layout_width="150dp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pokaz kluby na mapie"
+        android:id="@+id/button10"
+        android:layout_marginBottom="71dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
 </RelativeLayout>
