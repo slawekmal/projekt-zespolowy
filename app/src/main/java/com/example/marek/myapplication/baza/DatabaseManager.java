@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,15 +18,17 @@ import java.util.Set;
 public class DatabaseManager extends SQLiteOpenHelper {
 
     private static final String createMiasto = "create table miasto(id integer primary key autoincrement, nazwa text not null);";
-    private static final String createMiejsce = "create table miejsce(id integer primary key autoincrement, miasto_id integer foreign key references miasto(id) not null, nazwa text not null, adres text, wspolrzedne text);";
-    private static final String createWydarzenie = "create table wydarzenie(id integer primary key autoincrement, miejsce_id integer foreign key references miejsce(id) not null, rodzaj_id integer foreign key references rodzaj_wydarzenia(id), nazwa text not null, data date);";
+    private static final String createMiejsce = "create table miejsce(id integer primary key autoincrement, miasto_id integer not null, nazwa text not null, adres text, wspolrzedne text,  foreign key(miasto_id) references miasto(id));";
+    private static final String createWydarzenie = "create table wydarzenie(id integer primary key autoincrement, miejsce_id integer not null, rodzaj_id integer not null, nazwa text not null, data date,  foreign key(miejsce_id) references miejsce(id), foreign key(rodzaj_id) references rodzaj_wydarzenia(id));";
     private static final String createRodzaj_wydarzenia = "create table rodzaj_wydarzenia(id integer primary key autoincrement, rodzaj text not null);";
-    private static final String createInformacje = "create table informacje(id integer primary key autoincrement, miasto_id integer foreign key references miasto(id) not null, mpk text, taxi text);";
+    private static final String createInformacje = "create table informacje(id integer primary key autoincrement, miasto_id integer not null, mpk text, taxi text, foreign key(miasto_id) references miasto(id));";
     private static final String dropMiasto = "drop table miasto;";
     private static final String dropMiejsce = "drop table miejsce;";
     private static final String dropWydarzenie = "drop table wydarzenie;";
     private static final String dropRodzaj_wydarzenia = "drop table rodzaj_wydzarzenia;";
     private static final String dropInformacje = "drop table informacje;";
+    private static final String insertLublin = "insert into miasto(nazwa) values('Lublin');";
+    private static final String insertWarszawa = "insert into miasto(nazwa) values('Warszawa');";
 
     public DatabaseManager(Context context) {
         super(context, "imprezy.db", null, 2);
@@ -37,6 +41,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.execSQL(createRodzaj_wydarzenia);
         db.execSQL(createWydarzenie);
         db.execSQL(createInformacje);
+        db.execSQL(insertLublin);
+        db.execSQL(insertWarszawa);
     }
 
     @Override
@@ -51,6 +57,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.execSQL(createRodzaj_wydarzenia);
         db.execSQL(createWydarzenie);
         db.execSQL(createInformacje);
+        db.execSQL(insertLublin);
+        db.execSQL(insertWarszawa);
     }
 
     public void addMiasto(Miasto miasto){
@@ -210,13 +218,18 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String[] kolumny={"id","miejsce_id","rodzaj_id","nazwa","data"};
         SQLiteDatabase db = getReadableDatabase();
         Cursor kursor =db.query("wydarzenie",kolumny,null,null,null,null,null);
-        while(kursor.moveToNext()){
+        while(kursor.moveToNext()) {
             Wydarzenie wydarzenie = new Wydarzenie();
             wydarzenie.setId(kursor.getInt(0));
             wydarzenie.setMiejsce(getMiejsce(kursor.getInt(1)));
             wydarzenie.setRodzaj(getRodzajWydarzenia(kursor.getInt(2)));
             wydarzenie.setNazwa(kursor.getString(3));
-            //wydarzenie.setData();
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            try {
+                wydarzenie.setData(format.parse(kursor.getString(4)));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             wydarzenia.add(wydarzenie);
         }
         return wydarzenia;
@@ -293,7 +306,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
             wydarzenie.setMiejsce(getMiejsce(kursor.getInt(1)));
             wydarzenie.setRodzaj(getRodzajWydarzenia(kursor.getInt(2)));
             wydarzenie.setNazwa(kursor.getString(3));
-            //wydarzenie.setData(kursor.getString(4));
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            try {
+                wydarzenie.setData(format.parse(kursor.getString(4)));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
         return wydarzenie;
     }
