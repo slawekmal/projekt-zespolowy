@@ -29,7 +29,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String dropInformacje = "drop table informacje;";
     private static final String insertLublin = "insert into miasto(nazwa) values('Lublin');";
     private static final String insertWarszawa = "insert into miasto(nazwa) values('Warszawa');";
-
+    private static final String insertKlubowe = "insert into rodzaj_wydarzenia(rodzaj) values('Klubowe');";
+    private static final String insertSportowe = "insert into rodzaj_wydarzenia(rodzaj) values('Sportowe');";
+    private static final String insertKulturalne =" insert into rodzaj_wydarzenia(rodzaj) values('Kulturalne');" ;
+    private static final String insertInne = " insert into rodzaj_wydarzenia(rodzaj) values('Inne');";
+    private static final String insertArenaLublin = "insert into miejsce(miasto_id, nazwa, adres, wspolrzedne) values(1,'ArenaLublin','Stadionowa1','51.2323839,22.5575203');";
     public DatabaseManager(Context context) {
         super(context, "imprezy.db", null, 2);
     }
@@ -42,7 +46,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.execSQL(createWydarzenie);
         db.execSQL(createInformacje);
         db.execSQL(insertLublin);
-        db.execSQL(insertWarszawa);
+        //db.execSQL(insertWarszawa);
+        db.execSQL(insertKlubowe);
+        db.execSQL(insertSportowe);
+        db.execSQL(insertKulturalne);
+        db.execSQL(insertInne);
+        db.execSQL(insertArenaLublin);
     }
 
     @Override

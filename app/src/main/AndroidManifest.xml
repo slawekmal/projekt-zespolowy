@@ -88,6 +88,15 @@
             android:label="@string/title_activity_klub_shine"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".Miejsce"
+            android:label="@string/title_activity_miejsce"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.marek.myapplication.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

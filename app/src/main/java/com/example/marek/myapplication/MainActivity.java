@@ -7,16 +7,22 @@ import java.util.Set;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import com.example.marek.myapplication.baza.DatabaseManager;
 import com.example.marek.myapplication.baza.Miasto;
+import com.example.marek.myapplication.baza.RodzajWydarzenia;
 
 
 public class MainActivity extends Activity {
@@ -32,16 +38,12 @@ public class MainActivity extends Activity {
     }
 
 
-    public void reakcja() {
-        Intent i = new Intent(this, Wybor.class);
-        startActivity(i);
-    }
-
     DatabaseManager dm;
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    Dialog listDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +51,13 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         instancja = new MainActivity();
         initDatabase();
-        Button b = (Button) findViewById(R.id.button1);
-        OnClickListener l = new OnClickListener() {
-            public void onClick(View v) {
-                reakcja();
-            }
-        };
-        b.setOnClickListener(l);
+//        Button b = (Button) findViewById(R.id.button1);
+//        OnClickListener l = new OnClickListener() {
+//            public void onClick(View v) {
+//                reakcja();
+//            }
+//        };
+//        b.setOnClickListener(l);
 
         // get the listview
         getInstance().expListView = (ExpandableListView) findViewById(R.id.lvExp);
@@ -77,7 +79,7 @@ public class MainActivity extends Activity {
                     case 0:
                         switch (childPosition) {
                             case 0:
-                                reakcja();
+                                wyswietlRodzaje(childPosition+1);
                                 break;
                         }
                 }
@@ -104,6 +106,7 @@ public class MainActivity extends Activity {
         Set<Miasto> miasta = getInstance().dm.getWszystkieMiasta();
         for (Miasto miasto : miasta) {
             top250.add(miasto.getNazwa());
+            Log.v("miastoId",String.valueOf(miasto.getId()));
         }
 
 
@@ -128,5 +131,36 @@ public class MainActivity extends Activity {
         getInstance().dm = new DatabaseManager(this);
     }
 
+    public Dialog createDialog(final int miastoID) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        String[] options = new String[getInstance().dm.getWszystkieRodzajeWydarzen().size()];
+        for (RodzajWydarzenia rw : getInstance().dm.getWszystkieRodzajeWydarzen()) {
+            if (rw != null) {
+                Log.v("RodzajeWydarzenwBazie",rw.getRodzaj());
+                options[rw.getId() - 1] = rw.getRodzaj();
+            }
+        }
+        dialogBuilder.setTitle("Rodzaj Wydarzenia");
+        dialogBuilder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int position) {
+                Intent intent = new Intent(MainActivity.this, Miejsce.class);
+                int[] miasto_rodzaj = new int[2];
+                miasto_rodzaj[0]=miastoID;
+                miasto_rodzaj[1]=position+1;
+                intent.putExtra("miasto_rodzaj", miasto_rodzaj);
+                startActivity(intent);
+            }
+        });
+        return dialogBuilder.create();
+    }
+    public void wyswietlRodzaje(int miastoID) {
+        if (getInstance().dm.getWszystkieRodzajeWydarzen().isEmpty()) {
+            Toast.makeText(this, "Brak", Toast.LENGTH_LONG).show();
+        } else {
+            getInstance().listDialog = createDialog(miastoID);
+            getInstance().listDialog.show();
 
+        }
+    }
 }
