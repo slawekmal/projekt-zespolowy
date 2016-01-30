@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,10 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.example.marek.myapplication.baza.DatabaseManager;
@@ -51,13 +47,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         instancja = new MainActivity();
         initDatabase();
-//        Button b = (Button) findViewById(R.id.button1);
-//        OnClickListener l = new OnClickListener() {
-//            public void onClick(View v) {
-//                reakcja();
-//            }
-//        };
-//        b.setOnClickListener(l);
 
         // get the listview
         getInstance().expListView = (ExpandableListView) findViewById(R.id.lvExp);
@@ -97,9 +86,9 @@ public class MainActivity extends Activity {
         listDataChild = new HashMap<String, List<String>>();
 
         // Adding child data
-        getInstance().listDataHeader.add("Miasto");
-        getInstance().listDataHeader.add("Relacje");
-        getInstance().listDataHeader.add("Pomoc");
+        getInstance().listDataHeader.add("Pokaż dostępne miasta");
+        getInstance().listDataHeader.add("Dodaj relację z wydarzenia");
+        getInstance().listDataHeader.add("Przydatne informacje");
 
         // Adding child data
         List<String> top250 = new ArrayList<String>();
@@ -111,15 +100,14 @@ public class MainActivity extends Activity {
 
 
         List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("Zdjęcie");
-        nowShowing.add("Wideo");
-        nowShowing.add("Dyktafon");
+        nowShowing.add("Dodaj Zdjęcie");
+        nowShowing.add("Nagraj Wideo");
+        nowShowing.add("Nagraj Dźwięk");
 
 
         List<String> comingSoon = new ArrayList<String>();
-        comingSoon.add("Mpk");
+        comingSoon.add("MPK");
         comingSoon.add("Taxi");
-        comingSoon.add("costam");
 
 
         getInstance().listDataChild.put(getInstance().listDataHeader.get(0), top250); // Header, Child data
@@ -144,7 +132,7 @@ public class MainActivity extends Activity {
         dialogBuilder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int position) {
-                Intent intent = new Intent(MainActivity.this, Miejsce.class);
+                Intent intent = new Intent(MainActivity.this, ShowWydarzenia.class);
                 int[] miasto_rodzaj = new int[2];
                 miasto_rodzaj[0]=miastoID;
                 miasto_rodzaj[1]=position+1;

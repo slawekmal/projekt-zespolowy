@@ -60,4 +60,8 @@ public class Miejsce {
     public void setWydarzenia(Set<Wydarzenie> wydarzenia) {
         this.wydarzenia = wydarzenia;
     }
+
+    public String toString(){
+        return this.getNazwa();
+    }
 }

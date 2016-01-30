@@ -37,13 +37,6 @@ public class Wybor extends AppCompatActivity {
         setContentView(R.layout.activity_wybor);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Button b = (Button) findViewById(R.id.button1);
-        View.OnClickListener l = new View.OnClickListener() {
-            public void onClick(View v) {
-                reakcja();
-            }
-        };
-        b.setOnClickListener(l);
 
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.lvExp);

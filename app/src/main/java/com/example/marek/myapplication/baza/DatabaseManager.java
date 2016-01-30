@@ -33,7 +33,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String insertSportowe = "insert into rodzaj_wydarzenia(rodzaj) values('Sportowe');";
     private static final String insertKulturalne =" insert into rodzaj_wydarzenia(rodzaj) values('Kulturalne');" ;
     private static final String insertInne = " insert into rodzaj_wydarzenia(rodzaj) values('Inne');";
-    private static final String insertArenaLublin = "insert into miejsce(miasto_id, nazwa, adres, wspolrzedne) values(1,'ArenaLublin','Stadionowa1','51.2323839,22.5575203');";
+    private static final String insertArenaLublin = "insert into miejsce(miasto_id, nazwa, adres, wspolrzedne) values(1,'Arena Lublin','Stadionowa 1','51.2323839,22.5575203');";
+    private static final String insertSilence = "insert into miejsce(miasto_id, nazwa, adres, wspolrzedne) values(1,'Klub Silence','Idziego Radziszewskiego 8','51.246437,22.5437714');";
+    private static final String insertMecz = "insert into wydarzenie(miejsce_id, rodzaj_id, nazwa, data) values(1,2,'Mecz Polska-Niemcy','15-03-2016');";
+    private static final String insertImpreza = "insert into wydarzenie(miejsce_id, rodzaj_id, nazwa, data) values(1,1,'Super imprezka','10-02-2016');";
+
+
     public DatabaseManager(Context context) {
         super(context, "imprezy.db", null, 2);
     }
@@ -52,6 +57,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.execSQL(insertKulturalne);
         db.execSQL(insertInne);
         db.execSQL(insertArenaLublin);
+        db.execSQL(insertSilence);
+        db.execSQL(insertMecz);
+        db.execSQL(insertImpreza);
     }
 
     @Override
@@ -67,7 +75,15 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.execSQL(createWydarzenie);
         db.execSQL(createInformacje);
         db.execSQL(insertLublin);
-        db.execSQL(insertWarszawa);
+        //db.execSQL(insertWarszawa);
+        db.execSQL(insertKlubowe);
+        db.execSQL(insertSportowe);
+        db.execSQL(insertKulturalne);
+        db.execSQL(insertInne);
+        db.execSQL(insertArenaLublin);
+        db.execSQL(insertSilence);
+        db.execSQL(insertMecz);
+        db.execSQL(insertImpreza);
     }
 
     public void addMiasto(Miasto miasto){
@@ -291,7 +307,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String[] kolumny={"id","miasto_id","nazwa","adres","wspolrzedne"};
         String args[]={id+""};
-        Cursor kursor=db.query("wydarzenie",kolumny,"id=?",args,null,null,null,null);
+        Cursor kursor=db.query("miejsce",kolumny,"id=?",args,null,null,null,null);
         if(kursor!=null){
             kursor.moveToFirst();
             miejsce.setId(kursor.getInt(0));
@@ -308,7 +324,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String[] kolumny={"id","miejsce_id","rodzaj_id","nazwa","data"};
         String args[]={id+""};
-        Cursor kursor=db.query("miasto",kolumny,"id=?",args,null,null,null,null);
+        Cursor kursor=db.query("wydarzenie",kolumny,"id=?",args,null,null,null,null);
         if(kursor!=null){
             kursor.moveToFirst();
             wydarzenie.setId(kursor.getInt(0));

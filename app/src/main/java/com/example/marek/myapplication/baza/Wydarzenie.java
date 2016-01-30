@@ -51,4 +51,8 @@ public class Wydarzenie {
     public void setData(Date data) {
         this.data = data;
     }
+
+    public String toString(){
+        return this.getNazwa() + ", " +this.getMiejsce();
+    }
 }

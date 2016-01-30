@@ -18,8 +18,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="WYBIERZ CO CHCESZ ZROBIC "
         android:id="@+id/textView2"
-        android:layout_marginTop="18dp"
 
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <ExpandableListView
@@ -27,16 +27,11 @@
         android:layout_height="400dp"
         android:layout_width="150dp"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" />
-
-
-    <Button
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:text="cos"
-        android:id="@+id/button1"
-        android:layout_below="@+id/lvExp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
+
 
 </RelativeLayout>

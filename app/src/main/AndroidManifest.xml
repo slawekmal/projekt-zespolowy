@@ -89,8 +89,8 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".Miejsce"
-            android:label="@string/title_activity_miejsce"
+            android:name=".ShowWydarzenia"
+            android:label="@string/title_activity_wydarzenie"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
