@@ -97,6 +97,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.marek.myapplication.MainActivity" />
         </activity>
+        <activity
+            android:name=".WydarzenieSzczegoly"
+            android:label="@string/title_activity_wydarzenie_szczegoly"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

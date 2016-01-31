@@ -1,5 +1,6 @@
 package com.example.marek.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -52,7 +53,10 @@ public class ShowWydarzenia extends AppCompatActivity {
 
                 Object o = lvWydarzenia.getAdapter().getItem(position);
                 Wydarzenie wydarzenie=(Wydarzenie)o;//As you are using Default String Adapter
-                Toast.makeText(getBaseContext(), wydarzenie.getData().toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext(), wydarzenie.getData().toString(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ShowWydarzenia.this, WydarzenieSzczegoly.class);
+                intent.putExtra("wyd_id", wydarzenie.getId());
+                startActivity(intent);
             }
         });
     }
