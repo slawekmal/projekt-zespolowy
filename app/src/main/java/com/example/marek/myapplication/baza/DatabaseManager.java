@@ -22,6 +22,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String createWydarzenie = "create table wydarzenie(id integer primary key autoincrement, miejsce_id integer not null, rodzaj_id integer not null, nazwa text not null, data date,  foreign key(miejsce_id) references miejsce(id), foreign key(rodzaj_id) references rodzaj_wydarzenia(id));";
     private static final String createRodzaj_wydarzenia = "create table rodzaj_wydarzenia(id integer primary key autoincrement, rodzaj text not null);";
     private static final String createInformacje = "create table informacje(id integer primary key autoincrement, miasto_id integer not null, mpk text, taxi text, foreign key(miasto_id) references miasto(id));";
+    private static final String createZdjecie = "create table zdjecie(id integer primary key autoincrement, wydarzenie_id integer not null, zdjecie blob, foreign key(wydarzenie_id) references wydarzenie(id));";
     private static final String dropMiasto = "drop table miasto;";
     private static final String dropMiejsce = "drop table miejsce;";
     private static final String dropWydarzenie = "drop table wydarzenie;";
@@ -35,8 +36,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String insertInne = " insert into rodzaj_wydarzenia(rodzaj) values('Inne');";
     private static final String insertArenaLublin = "insert into miejsce(miasto_id, nazwa, adres, wspolrzedne) values(1,'Arena Lublin','Stadionowa 1','51.2323839,22.5575203');";
     private static final String insertSilence = "insert into miejsce(miasto_id, nazwa, adres, wspolrzedne) values(1,'Klub Silence','Idziego Radziszewskiego 8','51.246437,22.5437714');";
-    private static final String insertMecz = "insert into wydarzenie(miejsce_id, rodzaj_id, nazwa, data) values(1,2,'Mecz Polska-Niemcy','15-03-2016');";
-    private static final String insertImpreza = "insert into wydarzenie(miejsce_id, rodzaj_id, nazwa, data) values(1,1,'Super imprezka','10-02-2016');";
+    private static final String insertMecz = "insert into wydarzenie(miejsce_id, rodzaj_id, nazwa, data) values(1,1,'Mecz Polska-Niemcy','15-03-2016');";
+    private static final String insertImpreza = "insert into wydarzenie(miejsce_id, rodzaj_id, nazwa, data) values(1,2,'Super imprezka','10-02-2016');";
 
 
     public DatabaseManager(Context context) {
@@ -50,6 +51,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.execSQL(createRodzaj_wydarzenia);
         db.execSQL(createWydarzenie);
         db.execSQL(createInformacje);
+        db.execSQL(createZdjecie);
         db.execSQL(insertLublin);
         //db.execSQL(insertWarszawa);
         db.execSQL(insertKlubowe);
