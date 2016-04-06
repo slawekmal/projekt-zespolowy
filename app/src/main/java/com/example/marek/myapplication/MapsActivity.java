@@ -47,10 +47,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        LatLng Czekolada = new LatLng(51.2470281, 22.5610082);
 //        map.addMarker(new MarkerOptions().position(Czekolada).title("Klub Czekolada"));
 //        map.moveCamera(CameraUpdateFactory.newLatLng(Czekolada));
+
         this.map = map;
         LatLng Miejsce = new LatLng(51.2323839, 22.5575203);
         this.map.addMarker(new MarkerOptions().position(Miejsce).title(wydarzenie.getMiejsce().getNazwa()));
         this.map.moveCamera(CameraUpdateFactory.newLatLng(Miejsce));
+        this.map.moveCamera(CameraUpdateFactory.zoomTo(15));
     }
 
 }
