@@ -70,6 +70,24 @@
             android:label="@string/title_activity_nowe_wydarzenie"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".WybierzMiasto"
+            android:label="@string/title_activity_wybierz_miasto"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.marek.myapplication.MainActivity" />
+        </activity>
+        <activity
+            android:name=".WybierzMiejsce"
+            android:label="@string/title_activity_wybierz_miejsce"
+            android:parentActivityName=".WybierzMiasto"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.marek.myapplication.WybierzMiasto" />
+        </activity>
     </application>
 
 </manifest>

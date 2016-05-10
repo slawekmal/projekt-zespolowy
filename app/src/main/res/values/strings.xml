@@ -5,5 +5,7 @@
     <string name="title_activity_wydarzenie">Wydarzenia</string>
     <string name="title_activity_wydarzenie_szczegoly">WydarzenieSzczegoly</string>
     <string name="title_activity_nowe_wydarzenie">NoweWydarzenie</string>
+    <string name="title_activity_wybierz_miasto">WybierzMiasto</string>
+    <string name="title_activity_wybierz_miejsce">WybierzMiejsce</string>
 
 </resources>

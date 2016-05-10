@@ -153,7 +153,7 @@ public class MainActivity extends Activity {
     }
 
     public void dodajWydarzenie(View view){
-        Intent intent = new Intent(MainActivity.this, NoweWydarzenie.class);
+        Intent intent = new Intent(MainActivity.this, WybierzMiasto.class);
         startActivity(intent);
     }
 }

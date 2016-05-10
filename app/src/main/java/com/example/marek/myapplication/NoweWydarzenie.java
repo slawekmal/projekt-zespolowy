@@ -24,8 +24,6 @@ public class NoweWydarzenie extends AppCompatActivity {
     private Miejsce miejsce;
     private RodzajWydarzenia rodzaj;
     private Wydarzenie wydarzenie;
-    private EditText etMiasto;
-    private EditText etMiejsce;
     private EditText etRodzaj;
     private EditText etNazwa;
     private EditText etData;
@@ -36,37 +34,17 @@ public class NoweWydarzenie extends AppCompatActivity {
         setContentView(R.layout.activity_nowe_wydarzenie);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Bundle od = getIntent().getExtras();
+        miasto = MainActivity.getInstance().dm.getMiasto(od.getIntArray("miasto_miejsce")[0]);
+        miejsce = MainActivity.getInstance().dm.getMiejsce(od.getIntArray("miasto_miejsce")[1]);
     }
 
     public void dodaj(View view){
 
-        etMiasto = (EditText) findViewById(R.id.editMiasto);
-        etMiejsce = (EditText) findViewById(R.id.editMiejsce);
         etRodzaj = (EditText) findViewById(R.id.editRodzaj);
         etNazwa = (EditText) findViewById(R.id.editNazwa);
         etData = (EditText) findViewById(R.id.editData);
 
-        for (Miasto i: MainActivity.getInstance().dm.getWszystkieMiasta()) {
-            if(i.getNazwa().equalsIgnoreCase(this.etMiasto.getText().toString()))
-                this.miasto = i;
-            else
-            {
-                this.miasto = new Miasto();
-                this.miasto.setNazwa(this.etMiasto.getText().toString());
-                MainActivity.getInstance().dm.addMiasto(this.miasto);
-            }
-        }
-        for (Miejsce i: MainActivity.getInstance().dm.getWszystkieMiejsca()) {
-            if(i.getNazwa().equalsIgnoreCase(this.etMiejsce.getText().toString()) && i.getMiasto().equals(this.miasto))
-                this.miejsce = i;
-            else
-            {
-                this.miejsce = new Miejsce();
-                this.miejsce.setNazwa(this.etMiejsce.getText().toString());
-                this.miejsce.setMiasto(this.miasto);
-                MainActivity.getInstance().dm.addMiejsce(this.miejsce);
-            }
-        }
         for (RodzajWydarzenia i: MainActivity.getInstance().dm.getWszystkieRodzajeWydarzen()) {
             if(i.getRodzaj().equalsIgnoreCase(this.etRodzaj.getText().toString()))
                 this.rodzaj = i;
@@ -78,6 +56,7 @@ public class NoweWydarzenie extends AppCompatActivity {
         try {
             this.wydarzenie.setData(format.parse(this.etData.getText().toString()));
         } catch (ParseException e) {
+            Toast.makeText(this,"Błąd parsowania daty", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
         this.wydarzenie.setMiejsce(this.miejsce);

@@ -14,37 +14,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Miasto"
-        android:id="@+id/textView3"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textView5"
-        android:layout_alignEnd="@+id/textView5" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Miejsce"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="65dp"
-        android:layout_alignRight="@+id/textView5"
-        android:layout_alignEnd="@+id/textView5" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Rodzaj Wydarzenia"
         android:id="@+id/textView5"
-        android:layout_below="@+id/textView4"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="57dp" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,9 +26,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Nazwa Wydarzenia"
         android:id="@+id/textView6"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editRodzaj" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -72,29 +46,11 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editMiasto"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textView3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editMiejsce"
-        android:layout_alignTop="@+id/textView4"
-        android:layout_toRightOf="@+id/textView4"
-        android:layout_alignRight="@+id/editMiasto"
-        android:layout_alignEnd="@+id/editMiasto" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/editRodzaj"
         android:layout_alignTop="@+id/textView5"
         android:layout_toRightOf="@+id/textView5"
-        android:layout_alignRight="@+id/editMiejsce"
-        android:layout_alignEnd="@+id/editMiejsce" />
+        android:layout_alignRight="@+id/editNazwa"
+        android:layout_alignEnd="@+id/editNazwa" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -120,8 +76,7 @@
         android:layout_height="wrap_content"
         android:text="Dodaj"
         android:id="@+id/dodajWyd"
-        android:layout_below="@+id/editData"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="54dp"
-        android:onClick="dodaj" />
+        android:onClick="dodaj"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
