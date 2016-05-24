@@ -5,9 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,8 +38,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String insertInne = " insert into rodzaj_wydarzenia(rodzaj) values('Inne');";
     private static final String insertArenaLublin = "insert into miejsce(miasto_id, nazwa, adres, wspolrzedne) values(1,'Arena Lublin','Stadionowa 1','51.2323839,22.5575203');";
     private static final String insertSilence = "insert into miejsce(miasto_id, nazwa, adres, wspolrzedne) values(1,'Klub Silence','Idziego Radziszewskiego 8','51.246437,22.5437714');";
-    private static final String insertMecz = "insert into wydarzenie(miejsce_id, rodzaj_id, nazwa, data) values(1,1,'Mecz Polska-Niemcy','15-03-2016');";
-    private static final String insertImpreza = "insert into wydarzenie(miejsce_id, rodzaj_id, nazwa, data) values(1,2,'Super imprezka','10-02-2016');";
+    private static final String insertMecz = "insert into wydarzenie(miejsce_id, rodzaj_id, nazwa, data) values(1,1,'Mecz Polska-Niemcy','1466964000000');";
+    private static final String insertImpreza = "insert into wydarzenie(miejsce_id, rodzaj_id, nazwa, data) values(1,2,'Super imprezka','1466452800000');";
 
 
     public DatabaseManager(Context context) {
@@ -120,7 +122,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         wartosci.put("nazwa", wydarzenie.getNazwa());
         wartosci.put("miejsce_id", wydarzenie.getMiejsce().getId());
         wartosci.put("rodzaj_id", wydarzenie.getRodzaj().getId());
-        wartosci.put("data", wydarzenie.getData().getDate());
+        wartosci.put("data", wydarzenie.getData().getTime().getTime());
         db.insertOrThrow("wydarzenie", null, wartosci);
     }
 
@@ -166,7 +168,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         wartosci.put("nazwa", wydarzenie.getNazwa());
         wartosci.put("miejsce_id", wydarzenie.getMiejsce().getId());
         wartosci.put("rodzaj_id", wydarzenie.getRodzaj().getId());
-        wartosci.put("data", wydarzenie.getData().getDate());
+        wartosci.put("data", wydarzenie.getData().getTime().getTime());
         String args[]={wydarzenie.getId()+""};
         db.update("wydarzenie", wartosci, "id=?", args);
     }
@@ -251,10 +253,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
             wydarzenie.setMiejsce(getMiejsce(kursor.getInt(1)));
             wydarzenie.setRodzaj(getRodzajWydarzenia(kursor.getInt(2)));
             wydarzenie.setNazwa(kursor.getString(3));
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(kursor.getLong(4));
             try {
-                wydarzenie.setData(format.parse(kursor.getString(4)));
-            } catch (ParseException e) {
+                wydarzenie.setData(cal);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             wydarzenia.add(wydarzenie);
@@ -333,10 +336,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
             wydarzenie.setMiejsce(getMiejsce(kursor.getInt(1)));
             wydarzenie.setRodzaj(getRodzajWydarzenia(kursor.getInt(2)));
             wydarzenie.setNazwa(kursor.getString(3));
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(kursor.getLong(4));
             try {
-                wydarzenie.setData(format.parse(kursor.getString(4)));
-            } catch (ParseException e) {
+                wydarzenie.setData(cal);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

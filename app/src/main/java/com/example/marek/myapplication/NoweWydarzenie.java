@@ -1,12 +1,15 @@
 package com.example.marek.myapplication;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.marek.myapplication.baza.Miasto;
@@ -16,6 +19,7 @@ import com.example.marek.myapplication.baza.Wydarzenie;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class NoweWydarzenie extends AppCompatActivity {
@@ -24,9 +28,11 @@ public class NoweWydarzenie extends AppCompatActivity {
     private Miejsce miejsce;
     private RodzajWydarzenia rodzaj;
     private Wydarzenie wydarzenie;
-    private EditText etRodzaj;
+    private RadioButton radioRodzaj;
     private EditText etNazwa;
-    private EditText etData;
+    private DatePicker dpData;
+    private RadioGroup radioRodzajGroup;
+    private Button btnDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,24 +45,29 @@ public class NoweWydarzenie extends AppCompatActivity {
         miejsce = MainActivity.getInstance().dm.getMiejsce(od.getIntArray("miasto_miejsce")[1]);
     }
 
+
     public void dodaj(View view){
 
-        etRodzaj = (EditText) findViewById(R.id.editRodzaj);
+        radioRodzajGroup = (RadioGroup) findViewById(R.id.radioRodzaj);
         etNazwa = (EditText) findViewById(R.id.editNazwa);
-        etData = (EditText) findViewById(R.id.editData);
+        dpData = (DatePicker) findViewById(R.id.dpData);
+        // get selected radio button from radioGroup
+        int selectedId = radioRodzajGroup.getCheckedRadioButtonId();
+
+        // find the radiobutton by returned id
+        radioRodzaj = (RadioButton) findViewById(selectedId);
 
         for (RodzajWydarzenia i: MainActivity.getInstance().dm.getWszystkieRodzajeWydarzen()) {
-            if(i.getRodzaj().equalsIgnoreCase(this.etRodzaj.getText().toString()))
+            if(i.getRodzaj().equalsIgnoreCase(this.radioRodzaj.getText().toString()))
                 this.rodzaj = i;
         }
         this.wydarzenie = new Wydarzenie();
         this.wydarzenie.setRodzaj(this.rodzaj);
         this.wydarzenie.setNazwa(this.etNazwa.getText().toString());
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         try {
-            this.wydarzenie.setData(format.parse(this.etData.getText().toString()));
-        } catch (ParseException e) {
-            Toast.makeText(this,"Błąd parsowania daty", Toast.LENGTH_SHORT).show();
+            this.wydarzenie.setData(getDateFromDatePicker(dpData));
+        } catch (Exception e) {
+            Toast.makeText(this,"Błąd ustawienia daty", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
         this.wydarzenie.setMiejsce(this.miejsce);
@@ -65,6 +76,18 @@ public class NoweWydarzenie extends AppCompatActivity {
         } catch(Exception e){
             Toast.makeText(this,"Błąd", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    public static Calendar getDateFromDatePicker(DatePicker datePicker){
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth();
+        int year =  datePicker.getYear();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+
+        return calendar;
     }
 
 }

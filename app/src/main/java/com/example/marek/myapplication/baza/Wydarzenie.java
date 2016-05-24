@@ -1,5 +1,6 @@
 package com.example.marek.myapplication.baza;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ public class Wydarzenie {
     private Miejsce miejsce;
     private RodzajWydarzenia rodzaj;
     private String nazwa;
-    private Date data;
+    private Calendar data;
 
     public int getId() {
         return id;
@@ -44,11 +45,11 @@ public class Wydarzenie {
         this.nazwa = nazwa;
     }
 
-    public Date getData() {
+    public Calendar getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(Calendar data) {
         this.data = data;
     }
 

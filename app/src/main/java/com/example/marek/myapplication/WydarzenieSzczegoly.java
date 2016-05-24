@@ -34,7 +34,7 @@ public class WydarzenieSzczegoly extends AppCompatActivity {
         miejsce = (TextView) findViewById(R.id.textView7);
         miejsce.setText(wydarzenie.getMiejsce().getNazwa());
         data = (TextView) findViewById(R.id.textView8);
-        data.setText(wydarzenie.getData().toString());
+        data.setText(wydarzenie.getData().getTime().toString());
         mapa = (Button) findViewById(R.id.button);
         mapa.setOnClickListener(new View.OnClickListener() {
             @Override
