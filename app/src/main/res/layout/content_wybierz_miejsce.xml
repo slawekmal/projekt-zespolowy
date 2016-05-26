@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
@@ -12,19 +15,20 @@
 
     <ExpandableListView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="180dp"
         android:id="@+id/eLVM"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/textView10" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Albo dodaj nowe miejsce"
+        android:text="Albo dodaj nowe miejsce:"
         android:id="@+id/textView10"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/eLVM"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -33,10 +37,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/eMiejsceNazwa"
         android:layout_below="@+id/textView10"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textView10"
-        android:layout_alignEnd="@+id/textView10" />
+        android:layout_alignRight="@+id/eLVM"
+        android:layout_alignEnd="@+id/eLVM"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_alignStart="@+id/button3" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -44,12 +48,12 @@
         android:layout_height="wrap_content"
         android:text="Dodaj"
         android:id="@+id/button3"
-        android:layout_toRightOf="@+id/textView10"
         android:onClick="dodaj"
-        android:layout_alignBottom="@+id/eMiejsceWspolrzedne"
+        android:layout_below="@+id/eMiejsceWspolrzedne"
         android:layout_alignRight="@+id/eLVM"
         android:layout_alignEnd="@+id/eLVM"
-        android:layout_below="@+id/eMiejsceNazwa" />
+        android:layout_toRightOf="@+id/textView11"
+        android:layout_toEndOf="@+id/textView11" />
 
     <Button
         android:layout_width="wrap_content"
@@ -57,27 +61,61 @@
         android:text="Dalej"
         android:id="@+id/button4"
         android:onClick="dalej"
-        android:layout_below="@+id/eMiejsceWspolrzedne"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/button3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/eMiejsceAdres"
         android:layout_below="@+id/eMiejsceNazwa"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/eMiejsceNazwa"
-        android:layout_alignEnd="@+id/eMiejsceNazwa" />
+        android:layout_alignEnd="@+id/eMiejsceNazwa"
+        android:layout_alignLeft="@+id/eMiejsceNazwa"
+        android:layout_alignStart="@+id/eMiejsceNazwa" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/eMiejsceWspolrzedne"
         android:layout_below="@+id/eMiejsceAdres"
+        android:layout_alignRight="@+id/eLVM"
+        android:layout_alignEnd="@+id/eLVM"
+        android:layout_alignLeft="@+id/eMiejsceAdres"
+        android:layout_alignStart="@+id/eMiejsceAdres" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Nazwa"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/textView10"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/eMiejsceAdres"
-        android:layout_alignEnd="@+id/eMiejsceAdres" />
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Adres"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/eMiejsceNazwa"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Współrzędne"
+        android:id="@+id/textView11"
+        android:layout_alignTop="@+id/eMiejsceWspolrzedne"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
+</ScrollView>

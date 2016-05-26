@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.marek.myapplication.baza.Miasto;
@@ -33,6 +34,7 @@ public class NoweWydarzenie extends AppCompatActivity {
     private DatePicker dpData;
     private RadioGroup radioRodzajGroup;
     private Button btnDisplay;
+    private TimePicker tpGodzina;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class NoweWydarzenie extends AppCompatActivity {
         radioRodzajGroup = (RadioGroup) findViewById(R.id.radioRodzaj);
         etNazwa = (EditText) findViewById(R.id.editNazwa);
         dpData = (DatePicker) findViewById(R.id.dpData);
+        tpGodzina = (TimePicker) findViewById(R.id.tpGodzina);
         // get selected radio button from radioGroup
         int selectedId = radioRodzajGroup.getCheckedRadioButtonId();
 
@@ -65,7 +68,7 @@ public class NoweWydarzenie extends AppCompatActivity {
         this.wydarzenie.setRodzaj(this.rodzaj);
         this.wydarzenie.setNazwa(this.etNazwa.getText().toString());
         try {
-            this.wydarzenie.setData(getDateFromDatePicker(dpData));
+            this.wydarzenie.setData(getDateFromDatePicker(dpData, tpGodzina));
         } catch (Exception e) {
             Toast.makeText(this,"Błąd ustawienia daty", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
@@ -79,13 +82,15 @@ public class NoweWydarzenie extends AppCompatActivity {
 
     }
 
-    public static Calendar getDateFromDatePicker(DatePicker datePicker){
+    public static Calendar getDateFromDatePicker(DatePicker datePicker, TimePicker tpGodzina){
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
         int year =  datePicker.getYear();
+        int hour = tpGodzina.getCurrentHour();
+        int min = tpGodzina.getCurrentMinute();
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
+        calendar.set(year, month, day, hour, min);
 
         return calendar;
     }

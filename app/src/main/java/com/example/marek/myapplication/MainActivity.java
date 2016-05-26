@@ -87,8 +87,6 @@ public class MainActivity extends Activity {
 
         // Adding child data
         getInstance().listDataHeader.add("Pokaż dostępne miasta");
-        getInstance().listDataHeader.add("Dodaj relację z wydarzenia");
-        getInstance().listDataHeader.add("Przydatne informacje");
 
         // Adding child data
         List<String> top250 = new ArrayList<String>();
@@ -99,20 +97,7 @@ public class MainActivity extends Activity {
         }
 
 
-        List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("Dodaj Zdjęcie");
-        nowShowing.add("Nagraj Wideo");
-        nowShowing.add("Nagraj Dźwięk");
-
-
-        List<String> comingSoon = new ArrayList<String>();
-        comingSoon.add("MPK");
-        comingSoon.add("Taxi");
-
-
         getInstance().listDataChild.put(getInstance().listDataHeader.get(0), top250); // Header, Child data
-        getInstance().listDataChild.put(getInstance().listDataHeader.get(1), nowShowing);
-        getInstance().listDataChild.put(getInstance().listDataHeader.get(2), comingSoon);
     }
 
     public void initDatabase(){

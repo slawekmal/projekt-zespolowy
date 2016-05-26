@@ -60,7 +60,7 @@ public class WybierzMiasto extends AppCompatActivity {
                                         int groupPosition, int childPosition, long id) {
 
                miasto = MainActivity.getInstance().dm.getMiasto(childPosition+1);
-                Toast.makeText(WybierzMiasto.this.expListView.getContext(),"Wybrałeś " + miasto.getNazwa(), Toast.LENGTH_SHORT).show();
+               doMiejsca();
                 return false;
             }
 
@@ -87,6 +87,10 @@ public class WybierzMiasto extends AppCompatActivity {
     }
 
     public void dalej(View view){
+        doMiejsca();
+    }
+
+    public void doMiejsca(){
         Intent intent = new Intent(this, WybierzMiejsce.class);
         intent.putExtra("miasto_id", this.miasto.getId());
         startActivity(intent);
@@ -104,6 +108,7 @@ public class WybierzMiasto extends AppCompatActivity {
                 this.miasto = new Miasto();
                 this.miasto.setNazwa(this.etMiasto.getText().toString());
                 MainActivity.getInstance().dm.addMiasto(this.miasto);
+                this.miasto = MainActivity.getInstance().dm.getMiastoByName(this.miasto.getNazwa());
                 Toast.makeText(this,"Dodałeś nowe miasto: " + miasto.getNazwa(), Toast.LENGTH_SHORT).show();
             }
         }

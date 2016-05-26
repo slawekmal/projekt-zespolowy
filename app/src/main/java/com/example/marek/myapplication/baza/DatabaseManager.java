@@ -307,12 +307,43 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return miasto;
     }
 
+    public Miasto getMiastoByName(String nazwa){
+        Miasto miasto=new Miasto();
+        SQLiteDatabase db = getReadableDatabase();
+        String[] kolumny={"id","nazwa"};
+        String args[]={nazwa+""};
+        Cursor kursor=db.query("miasto",kolumny,"nazwa=?",args,null,null,null,null);
+        if(kursor!=null){
+            kursor.moveToFirst();
+            miasto.setId(kursor.getInt(0));
+            miasto.setNazwa(kursor.getString(1));
+        }
+        return miasto;
+    }
+
     public Miejsce getMiejsce(int id){
         Miejsce miejsce=new Miejsce();
         SQLiteDatabase db = getReadableDatabase();
         String[] kolumny={"id","miasto_id","nazwa","adres","wspolrzedne"};
         String args[]={id+""};
         Cursor kursor=db.query("miejsce",kolumny,"id=?",args,null,null,null,null);
+        if(kursor!=null){
+            kursor.moveToFirst();
+            miejsce.setId(kursor.getInt(0));
+            miejsce.setMiasto(getMiasto(kursor.getInt(1)));
+            miejsce.setNazwa(kursor.getString(2));
+            miejsce.setAdres(kursor.getString(3));
+            miejsce.setWspolrzedne(kursor.getString(4));
+        }
+        return miejsce;
+    }
+
+    public Miejsce getMiejsceByName(String name){
+        Miejsce miejsce=new Miejsce();
+        SQLiteDatabase db = getReadableDatabase();
+        String[] kolumny={"id","miasto_id","nazwa","adres","wspolrzedne"};
+        String args[]={name+""};
+        Cursor kursor=db.query("miejsce",kolumny,"nazwa=?",args,null,null,null,null);
         if(kursor!=null){
             kursor.moveToFirst();
             miejsce.setId(kursor.getInt(0));

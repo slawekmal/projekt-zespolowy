@@ -62,7 +62,7 @@ public class WybierzMiejsce extends AppCompatActivity {
                                         int groupPosition, int childPosition, long id) {
 
                 miejsce = MainActivity.getInstance().dm.getMiejsce(childPosition + 1);
-                Toast.makeText(WybierzMiejsce.this.expListView.getContext(), "Wybrałeś " + miejsce.getNazwa(), Toast.LENGTH_SHORT).show();
+                doWydarzenia();
                 return false;
             }
 
@@ -91,6 +91,10 @@ public class WybierzMiejsce extends AppCompatActivity {
     }
 
     public void dalej(View view){
+        doWydarzenia();
+    }
+
+    public void doWydarzenia(){
         Intent intent = new Intent(this, NoweWydarzenie.class);
         int[] miasto_miejsce = new int[2];
         miasto_miejsce[0]=this.miasto.getId();
@@ -116,6 +120,7 @@ public class WybierzMiejsce extends AppCompatActivity {
                 this.miejsce.setWspolrzedne((this.etMiejsceWspolrzedne.getText().toString()));
                 this.miejsce.setMiasto(this.miasto);
                 MainActivity.getInstance().dm.addMiejsce(this.miejsce);
+                this.miejsce = MainActivity.getInstance().dm.getMiejsceByName(this.miejsce.getNazwa());
                 Toast.makeText(this,"Dodałeś nowe miejsce: " + miejsce.getNazwa(), Toast.LENGTH_SHORT).show();
             }
         }
